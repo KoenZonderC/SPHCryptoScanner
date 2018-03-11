@@ -37,7 +37,20 @@ namespace SPHScanner
 
                 if (candleCount > 0) 
                 {
-                    var panicPerCandle =totalPanic /  candleCount;
+                    var panicPerCandle = totalPanic /  candleCount;
+                    if (panicPerCandle < 5m && candleCount > 1)
+                    {
+                        // perhaps the start candle is part of the stability phase and not the panic phase.
+                        candleCount--;
+                        candleIndex++;
+                        var candle = candles[candleIndex];
+                        var candlePercentage = candle.BodyPercentage();
+                        if (candlePercentage < 5m)
+                        {
+                            totalPanic = totalPanic - candlePercentage;
+                            panicPerCandle = totalPanic / candleCount;
+                        }
+                    }
                     if (panicPerCandle >= 5m)
                     {
                         // we found panic.. 

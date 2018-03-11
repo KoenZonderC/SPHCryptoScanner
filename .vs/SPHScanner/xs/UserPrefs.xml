@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{9E855624-9178-4919-B761-4B862743E045}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="SPHScanner/Program.cs">
     <Files>
-      <File FileName="SPHScanner/SPHStrategy.cs" Line="61" Column="57" />
+      <File FileName="SPHScanner/SPHStrategy.cs" Line="79" Column="34" />
       <File FileName="SPHScanner/SPH.cs" Line="19" Column="13" />
-      <File FileName="SPHScanner/Program.cs" Line="23" Column="16" />
+      <File FileName="SPHScanner/Program.cs" Line="33" Column="67" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

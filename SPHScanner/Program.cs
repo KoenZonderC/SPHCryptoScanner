@@ -29,7 +29,8 @@ namespace SPHScanner
                 {
                    Debug.WriteLine($"{idx}/{symbols.Count} scanning {symbol}");
                    idx++;
-                   var candles = await api.GetCandlesAsync(symbol, TIMEFRAME_H1, DateTime.Now.AddMonths(-1));
+                     
+                    var candles = await api.GetCandlesAsync(symbol, TIMEFRAME_H1, DateTime.Now.AddMonths(-1));
                    var sphs = strategy.Find(symbol, candles.ToList());
                    foreach(var sph in sphs)
                     {
