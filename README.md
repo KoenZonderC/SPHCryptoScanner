@@ -3,8 +3,13 @@ Simple scanner which scans all BTC pairs on bittrex for SPHs
 
 
 
-# Donations are welcome !!
+# History
+11-03-2018   v1.0   Inital commit
 
+
+
+
+# Donations are welcome !!
 Like what you see ? Feel free to donate to support further developments..
 
 BTC: 1J4npABsiQa2GkJu5q6RsjtCR1jxNvZdtu

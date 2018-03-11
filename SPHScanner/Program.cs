@@ -20,7 +20,7 @@ namespace SPHScanner
            {
                var strategy = new SPHStrategy();
                var api = new ExchangeBittrexAPI();
-                var symbols = (await api.GetSymbolsAsync()).Where(e => e.StartsWith("BTC-")).OrderBy(e=>e).ToList();
+               var symbols = (await api.GetSymbolsAsync()).Where(e => e.StartsWith("BTC-")).OrderBy(e=>e).ToList();
                Console.WriteLine($"got {symbols.Count} btc pairs from bittrex");
                Console.WriteLine("scanning all btc pairs for SPH's....");
 
