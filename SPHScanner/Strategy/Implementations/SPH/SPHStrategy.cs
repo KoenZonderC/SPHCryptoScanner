@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using ExchangeSharp;
+using Scanner.Entities;
+using SPHScanner.Strategy;
 
 namespace SPHScanner
 {
-    public class SPHStrategy
+    public class SPHStrategy : IStrategy
     {
         public SPHStrategy()
         {
@@ -16,15 +17,15 @@ namespace SPHScanner
         /// <returns>List of SPH's found</returns>
         /// <param name="symbol">Symbol.</param>
         /// <param name="candles">Candles list</param>
-        internal List<SPH> Find(string symbol, List<MarketCandle> candles)
+        public IList<IScanResult> Scan(string symbol, List<Candle> candles)
         {
-            var result = new List<SPH>();
+            var result = new List<IScanResult>();
 
             for (var i = candles.Count - 1; i > 0; i--)
             {
                 // Find panic....
                 var candleIndex = i;
-                var totalPanic  = 0M;
+                var totalPanic = 0M;
                 var candleCount = 0M;
                 while (candleIndex > 0)
                 {
@@ -35,9 +36,9 @@ namespace SPHScanner
                     candleCount++;
                 }
 
-                if (candleCount > 0) 
+                if (candleCount > 0)
                 {
-                    var panicPerCandle = totalPanic /  candleCount;
+                    var panicPerCandle = totalPanic / candleCount;
                     if (panicPerCandle < 5m && candleCount > 1)
                     {
                         // perhaps the start candle is part of the stability phase and not the panic phase.
@@ -57,8 +58,8 @@ namespace SPHScanner
                         var startCandleIndex = i - (int)(candleCount) + 1;
                         var endCandleIndex = i;
 
-                        var startPrice = candles[startCandleIndex].OpenPrice;
-                        var panicPrice = candles[endCandleIndex].ClosePrice;
+                        var startPrice = candles[startCandleIndex].Open;
+                        var panicPrice = candles[endCandleIndex].Close;
 
                         // Now check for stability before the panic appeared
                         if (StabilityFound(candles, startCandleIndex, startPrice))
@@ -71,10 +72,10 @@ namespace SPHScanner
                                 if (!PriceWentBelow(candles, panicPrice, endCandleIndex))
                                 {
                                     // SPH is still valid, add it to the result list.
-                                    var sph = new SPH();
-                                    sph.Symbol = candles[startCandleIndex].Name;
-                                    sph.Price = candles[endCandleIndex].ClosePrice;
-                                    sph.Date = candles[endCandleIndex].Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+                                    var sph = new SPHResult();
+                                    sph.Symbol = symbol;
+                                    sph.Price = candles[endCandleIndex].Close;
+                                    sph.Date = candles[endCandleIndex].Date.ToString("yyyy-MM-dd HH:mm:ss");
                                     result.Add(sph);
                                 }
                             }
@@ -94,12 +95,12 @@ namespace SPHScanner
         /// <param name="candles">list of candles</param>
         /// <param name="panicPrice">Panic price.</param>
         /// <param name="candleIndex">candle to look from.</param>
-        private bool PriceWentBelow(List<MarketCandle> candles, decimal panicPrice, int candleIndex)
+        private bool PriceWentBelow(List<Candle> candles, decimal panicPrice, int candleIndex)
         {
-            for (int i = candles.Count-1; i > candleIndex; i--)
+            for (int i = candles.Count - 1; i > candleIndex; i--)
             {
                 var candle = candles[i];
-                var minPrice = Math.Min(candle.OpenPrice, candle.ClosePrice);
+                var minPrice = Math.Min(candle.Open, candle.Close);
                 if (minPrice < panicPrice) return true;
             }
             return false;
@@ -113,12 +114,12 @@ namespace SPHScanner
         /// <param name="price">price to which current price should retrace</param>
         /// <param name="startIndex">start candle.</param>
         /// <param name="maxCandles">Max candles in which price must have retraced back</param>
-        private bool PriceRetracesTo(List<MarketCandle> candles, decimal price, int startIndex, int maxCandles)
+        private bool PriceRetracesTo(List<Candle> candles, decimal price, int startIndex, int maxCandles)
         {
             for (int i = startIndex; i <= startIndex + maxCandles; ++i)
             {
                 var candle = candles[i];
-                if (candle.ClosePrice >= price) return true;
+                if (candle.Close >= price) return true;
             }
             return false;
         }
@@ -131,18 +132,18 @@ namespace SPHScanner
         /// <param name="candles">Candles list</param>
         /// <param name="startIndex">Start candle</param>
         /// <param name="averagePrice">Average price.</param>
-        private bool StabilityFound(List<MarketCandle> candles, int startIndex, decimal averagePrice)
+        private bool StabilityFound(List<Candle> candles, int startIndex, decimal averagePrice)
         {
             // allow price to fluctuate +- 3.5% around the average price
-            var priceRangeLow  = (averagePrice / 100.0m) * (100m-3.5m);
-            var priceRangeHigh = (averagePrice / 100.0m) * (100m+3.5m);
+            var priceRangeLow = (averagePrice / 100.0m) * (100m - 3.5m);
+            var priceRangeHigh = (averagePrice / 100.0m) * (100m + 3.5m);
 
             var stabilityCandles = 0;
             for (int i = startIndex - 1; i > 0; i--)
             {
                 var candle = candles[i];
-                var candleBodyLow = Math.Min(candle.OpenPrice, candle.ClosePrice);
-                var candleBodyHigh = Math.Max(candle.OpenPrice, candle.ClosePrice);
+                var candleBodyLow = Math.Min(candle.Open, candle.Close);
+                var candleBodyHigh = Math.Max(candle.Open, candle.Close);
                 if (candleBodyLow >= priceRangeLow && candleBodyHigh <= priceRangeHigh)
                 {
                     stabilityCandles++;

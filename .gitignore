@@ -1,0 +1,8 @@
+bin/
+obj/
+data.db
+data.db-journal
+.vs/
+.vscode/
+.dll
+.pdb

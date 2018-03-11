@@ -1,18 +1,19 @@
 ﻿using System;
-using ExchangeSharp;
+using Scanner.Entities;
 
 namespace SPHScanner
 {
     public static class ExtensionMethods
-    { 
-        public static bool IsRedCandle(this MarketCandle candle)
+    {
+        public static bool IsRedCandle(this Candle candle)
         {
-            return candle.ClosePrice < candle.OpenPrice;
-        } 
+            return candle.Close < candle.Open;
+        }
 
-        public static decimal BodyPercentage(this MarketCandle candle){
-            var candleBody =  Math.Abs(candle.ClosePrice - candle.OpenPrice);
-            var openPrice = candle.OpenPrice;
+        public static decimal BodyPercentage(this Candle candle)
+        {
+            var candleBody = Math.Abs(candle.Close - candle.Open);
+            var openPrice = candle.Open;
             var percentage = candleBody / openPrice;
             percentage *= 100.0M;
             return percentage;

@@ -1,11 +1,12 @@
 # SPHCryptoScanner
-Simple scanner which scans all BTC pairs on bittrex for SPHs
+Simple scanner which scans all BTC pairs on bittrex and other exchanges for SPHs
 
 
 
 # History
 11-03-2018   v1.0   Inital commit
-
+11-03-2018   v1.01  Added caching of candle sticks in sqlite database
+      
 
 
 

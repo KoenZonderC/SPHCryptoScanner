@@ -1,7 +1,9 @@
 ﻿using System;
+using SPHScanner.Strategy;
+
 namespace SPHScanner
 {
-    public class SPH
+    public class SPHResult : IScanResult
     {
         /// <summary>
         /// Gets or sets the symbol name
@@ -21,8 +23,13 @@ namespace SPHScanner
         /// <value>The price.</value>
         public decimal Price { get; set; }
 
-        public SPH()
+        public SPHResult()
         {
+        }
+
+        public void Dump()
+        {
+            Console.WriteLine($"SPH: {Date}   {Symbol,15}   {Price}");
         }
     }
 }

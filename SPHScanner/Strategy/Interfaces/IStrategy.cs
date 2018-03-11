@@ -4,8 +4,8 @@ using Scanner.Entities;
 
 namespace SPHScanner.Strategy
 {
-    public class IStrategy
+    public interface IStrategy
     {
-        IList<IScanResult> Scan(List<Candle> candles);
+        IList<IScanResult> Scan(string symbol, List<Candle> candles);
     }
 }

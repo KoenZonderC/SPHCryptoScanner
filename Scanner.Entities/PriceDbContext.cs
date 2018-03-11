@@ -5,21 +5,23 @@ namespace Scanner.Entities
 {
     public class PriceDbContext: DbContext
     {
+        /// <summary>
+        /// table recording all exchanges
+        /// </summary>
         public DbSet<Exchange> Exchanges { get; set; }
+
+        /// <summary>
+        /// table recording all symbols
+        /// </summary>
+        public DbSet<Symbol> Symbols { get; set; }
+
+        /// <summary>
+        /// table recording all candles
+        /// </summary>
         public DbSet<Candle> Candles { get; set; }
 
-        public PriceHistoryContext()
+        public PriceDbContext()
         {
-        }
-
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<Exchange>()
-                   .HasKey(e => e.ExchangeId);
-
-            builder.Entity<Candle>()
-                   .HasKey(p => new { p.Close, p.ExchangeId });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

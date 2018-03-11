@@ -1,14 +1,26 @@
 ﻿<Properties StartupConfiguration="{9E855624-9178-4919-B761-4B862743E045}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SPHScanner/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SPHScanner/Strategy/Interfaces/IStrategy.cs">
     <Files>
-      <File FileName="SPHScanner/SPHStrategy.cs" Line="79" Column="34" />
-      <File FileName="SPHScanner/SPH.cs" Line="19" Column="13" />
-      <File FileName="SPHScanner/Program.cs" Line="22" Column="13" />
+      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHStrategy.cs" Line="22" Column="46" />
+      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHResult.cs" Line="32" Column="55" />
+      <File FileName="SPHScanner/Program.cs" Line="1" Column="1" />
+      <File FileName="Scanner.Entities/Exchange.cs" Line="30" Column="43" />
+      <File FileName="Scanner.Entities/Candle.cs" Line="45" Column="33" />
+      <File FileName="Scanner.Entities/PriceDbContext.cs" Line="19" Column="40" />
+      <File FileName="SPHScanner/CandleFactory.cs" Line="95" Column="34" />
+      <File FileName="Scanner.Entities/Symbol.cs" Line="32" Column="52" />
+      <File FileName="SPHScanner/ExchangeFactory.cs" Line="13" Column="52" />
+      <File FileName="SPHScanner/Scanner.cs" Line="29" Column="32" />
+      <File FileName="SPHScanner/Strategy/Interfaces/IStrategy.cs" Line="7" Column="21" />
+      <File FileName="SPHScanner/Strategy/Interfaces/IScanResult.cs" Line="1" Column="1" />
+      <File FileName="SPHScanner/ExtensionMethods.cs" Line="12" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/erwin/Documents/SPHCryptoScanner/SPHCryptoScanner/SPHScanner/CandleFactory.cs" relfile="SPHScanner/CandleFactory.cs" line="65" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
