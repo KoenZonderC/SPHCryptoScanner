@@ -3,14 +3,15 @@ Simple scanner which scans all BTC pairs on bittrex and other exchanges for SPHs
 
 
 
-# History
+## History
 11-03-2018   v1.0   Inital commit
+
 11-03-2018   v1.01  Added caching of candle sticks in sqlite database
       
 
 
 
-# Donations are welcome !!
+## Donations are welcome !!
 Like what you see ? Feel free to donate to support further developments..
 
 BTC: 1J4npABsiQa2GkJu5q6RsjtCR1jxNvZdtu
