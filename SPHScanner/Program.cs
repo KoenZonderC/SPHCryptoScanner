@@ -14,7 +14,7 @@ namespace SPHScanner
 
         static void Main(string[] args)
         {
-            Console.WriteLine("SPH Scanner 1.01 (c) 2018 Erwin Beckers");
+            Console.WriteLine("SPH Scanner 1.02 (c) 2018 Erwin Beckers");
             Console.WriteLine("");
 
             // create database if it doesnt exists yet
@@ -31,6 +31,11 @@ namespace SPHScanner
             // scan SPH's on binance
             scanner = new Scanner(ExchangeTypes.Binance);
             scanner.Scan(strategy);
+
+            // scan SPH's on kraken
+            scanner = new Scanner(ExchangeTypes.Kraken); 
+            scanner.Scan(strategy);
+
 
             Console.WriteLine("--- done ---");
             Console.ReadLine();

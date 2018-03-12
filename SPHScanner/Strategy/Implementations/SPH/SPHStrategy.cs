@@ -116,7 +116,7 @@ namespace SPHScanner
         /// <param name="maxCandles">Max candles in which price must have retraced back</param>
         private bool PriceRetracesTo(List<Candle> candles, decimal price, int startIndex, int maxCandles)
         {
-            for (int i = startIndex; i <= startIndex + maxCandles; ++i)
+            for (int i = startIndex; i <= startIndex + maxCandles && i < candles.Count; ++i)
             {
                 var candle = candles[i];
                 if (candle.Close >= price) return true;
