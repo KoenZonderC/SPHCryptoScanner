@@ -30,13 +30,25 @@ namespace SPHScanner
         /// <value>The stability in hours.</value>
         public int StabilityInHours { get; set; }
 
+        /// <summary>
+        /// Gets or sets the panic percentage.
+        /// </summary>
+        /// <value>The panic percentage.</value>
+        public decimal PanicPercentage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the panic duration in hours.
+        /// </summary>
+        /// <value>The panic hours.</value>
+        public int PanicHours { get; set; }
+
         public SPHResult()
         {
         }
 
         public void Dump()
         {
-            Console.WriteLine($"SPH: {Date}   {Symbol,15}  stability: {StabilityInHours,2} hours  price: {Price}");
+            Console.WriteLine($"SPH: {Date}   {Symbol,15} panic:{PanicPercentage:00.##}% in {PanicHours} hours  stability: {StabilityInHours,2} hours  price: {Price}");
         }
     }
 }

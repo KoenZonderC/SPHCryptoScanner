@@ -77,6 +77,8 @@ namespace SPHScanner
                                     sph.Symbol = symbol;
                                     sph.StabilityInHours = hours;
                                     sph.Price = candles[endCandleIndex].Close;
+                                    sph.PanicPercentage = totalPanic;
+                                    sph.PanicHours = (int)candleCount;
                                     sph.Date = candles[endCandleIndex].Date.ToString("yyyy-MM-dd HH:mm:ss");
                                     result.Add(sph);
                                 }

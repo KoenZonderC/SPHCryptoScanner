@@ -3,11 +3,11 @@
     <Files>
       <File FileName="SPHScanner/Program.cs" Line="34" Column="1" />
       <File FileName="SPHScanner/CandleFactory.cs" Line="77" Column="60" />
-      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHStrategy.cs" Line="65" Column="53" />
+      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHStrategy.cs" Line="77" Column="57" />
       <File FileName="SPHScanner/Scanner.cs" Line="33" Column="33" />
       <File FileName="SPHScanner/ExtensionMethods.cs" Line="12" Column="1" />
       <File FileName="SPHScanner/ExchangeFactory.cs" Line="39" Column="44" />
-      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHResult.cs" Line="12" Column="24" />
+      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHResult.cs" Line="51" Column="84" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
