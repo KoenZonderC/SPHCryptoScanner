@@ -1,12 +1,13 @@
 ﻿<Properties StartupConfiguration="{9E855624-9178-4919-B761-4B862743E045}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SPHScanner/Scanner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SPHScanner/Strategy/Implementations/SPH/SPHResult.cs">
     <Files>
-      <File FileName="SPHScanner/Program.cs" Line="28" Column="60" />
-      <File FileName="SPHScanner/CandleFactory.cs" Line="66" Column="1" />
-      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHStrategy.cs" Line="112" Column="69" />
-      <File FileName="SPHScanner/Scanner.cs" Line="29" Column="32" />
+      <File FileName="SPHScanner/Program.cs" Line="34" Column="1" />
+      <File FileName="SPHScanner/CandleFactory.cs" Line="77" Column="60" />
+      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHStrategy.cs" Line="65" Column="53" />
+      <File FileName="SPHScanner/Scanner.cs" Line="33" Column="33" />
       <File FileName="SPHScanner/ExtensionMethods.cs" Line="12" Column="1" />
       <File FileName="SPHScanner/ExchangeFactory.cs" Line="39" Column="44" />
+      <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHResult.cs" Line="12" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -20,8 +20,15 @@ namespace SPHScanner
         /// <summary>
         /// Gets or sets the price.
         /// </summary>
-        /// <value>The price.</value>
+        /// <value>The price.</value> 
         public decimal Price { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the stability period in hours.
+        /// </summary>
+        /// <value>The stability in hours.</value>
+        public int StabilityInHours { get; set; }
 
         public SPHResult()
         {
@@ -29,7 +36,7 @@ namespace SPHScanner
 
         public void Dump()
         {
-            Console.WriteLine($"SPH: {Date}   {Symbol,15}   {Price}");
+            Console.WriteLine($"SPH: {Date}   {Symbol,15}  stability: {StabilityInHours,2} hours  price: {Price}");
         }
     }
 }

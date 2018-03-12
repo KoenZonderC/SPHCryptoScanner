@@ -62,7 +62,8 @@ namespace SPHScanner
                         var panicPrice = candles[endCandleIndex].Close;
 
                         // Now check for stability before the panic appeared
-                        if (StabilityFound(candles, startCandleIndex, startPrice))
+                        var hours = StabilityInHours(candles, startCandleIndex, startPrice);
+                        if (hours >= 2)
                         {
                             // Stability found
                             // Now check if price retraces back to opening price quickly
@@ -74,6 +75,7 @@ namespace SPHScanner
                                     // SPH is still valid, add it to the result list.
                                     var sph = new SPHResult();
                                     sph.Symbol = symbol;
+                                    sph.StabilityInHours = hours;
                                     sph.Price = candles[endCandleIndex].Close;
                                     sph.Date = candles[endCandleIndex].Date.ToString("yyyy-MM-dd HH:mm:ss");
                                     result.Add(sph);
@@ -126,13 +128,13 @@ namespace SPHScanner
 
 
         /// <summary>
-        /// Checks if there is a region of stability around the average price
+        /// Checks if there is a region of stability around the average price in hours
         /// </summary>
-        /// <returns><c>true</c>, if stability was found, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c>, stability period in hours, <c>false</c> otherwise.</returns>
         /// <param name="candles">Candles list</param>
         /// <param name="startIndex">Start candle</param>
         /// <param name="averagePrice">Average price.</param>
-        private bool StabilityFound(List<Candle> candles, int startIndex, decimal averagePrice)
+        private int StabilityInHours(List<Candle> candles, int startIndex, decimal averagePrice)
         {
             // allow price to fluctuate +- 3.5% around the average price
             var priceRangeLow = (averagePrice / 100.0m) * (100m - 3.5m);
@@ -154,7 +156,7 @@ namespace SPHScanner
                 }
             }
 
-            return stabilityCandles >= 4;
+            return stabilityCandles ;
         }
     }
 }
