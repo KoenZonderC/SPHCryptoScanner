@@ -63,30 +63,35 @@ namespace SPHScanner
                     Debug.WriteLine($"update {symbol.Name}  Last Update:{symbol.LastUpdate} ");
                     
                     var api = ExchangeFactory.Create(exchangeType);
-                    var newCandles = api.GetCandles(symbol.Name, TIMEFRAME_H1, symbol.LastCandle).ToList();
-
-                    // add new candles to the database for next time
-                    foreach (var candle in newCandles)
+                    for (int i = 0; i < 2; ++i)
                     {
-                        // only add new candles
-                        if (candle.Timestamp > symbol.LastCandle)
+                        var newCandles = api.GetCandles(symbol.Name, TIMEFRAME_H1, symbol.LastCandle).ToList();
+                        // add new candles to the database for next time
+                        foreach (var candle in newCandles)
                         {
-                            symbol.LastCandle = candle.Timestamp;
-
-                            db.Candles.Add(new Candle()
+                            // only add new candles
+                            if (candle.Timestamp > symbol.LastCandle)
                             {
-                                SymbolId = symbol.SymbolId,
-                                Date = candle.Timestamp,
-                                Open = candle.OpenPrice,
-                                Close = candle.ClosePrice,
-                                Low = candle.LowPrice,
-                                High = candle.HighPrice
-                            });
+                                symbol.LastCandle = candle.Timestamp;
+
+                                db.Candles.Add(new Candle()
+                                {
+                                    SymbolId = symbol.SymbolId,
+                                    Date = candle.Timestamp,
+                                    Open = candle.OpenPrice,
+                                    Close = candle.ClosePrice,
+                                    Low = candle.LowPrice,
+                                    High = candle.HighPrice
+                                });
+                            }
                         }
+                        var ts = DateTime.Now - symbol.LastCandle;
+                        if (ts.TotalDays <= 1) break;
                     }
 
                     // set lastupdate for this symbol
                     symbol.LastUpdate = now;
+
                     Debug.WriteLine($"  set lastupdate {symbol.Name}  to :{symbol.LastUpdate} ");
                     db.SaveChanges();
                 }

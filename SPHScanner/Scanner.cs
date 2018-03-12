@@ -21,20 +21,20 @@ namespace SPHScanner
             // so we get the current list of symbols from the exchange 
             var api = ExchangeFactory.Create(_exchangeType);
             var symbols = api.GetSymbols().OrderBy(e => e).ToList();
-            
+
             // next for each symbol
             Console.WriteLine($"Scanning {symbols.Count} symbols on {_exchangeType}");
-            foreach(var symbol in symbols)
+            foreach (var symbol in symbols)
             {
                 // get the candles
                 var factory = new CandleFactory();
                 var candles = factory.Get(_exchangeType, symbol);
 
                 // scan for SPHs
-                var results =  strategy.Scan(symbol, candles);
+                var results = strategy.Scan(symbol, candles);
 
                 // show SPHs found
-                foreach(var result in results)
+                foreach (var result in results)
                 {
                     result.Dump();
                 }

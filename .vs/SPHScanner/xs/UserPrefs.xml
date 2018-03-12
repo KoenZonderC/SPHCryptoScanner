@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{9E855624-9178-4919-B761-4B862743E045}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SPHScanner/ExchangeFactory.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SPHScanner/Scanner.cs">
     <Files>
-      <File FileName="SPHScanner/Program.cs" Line="39" Column="38" />
+      <File FileName="SPHScanner/Program.cs" Line="28" Column="60" />
       <File FileName="SPHScanner/CandleFactory.cs" Line="66" Column="1" />
       <File FileName="SPHScanner/Strategy/Implementations/SPH/SPHStrategy.cs" Line="112" Column="69" />
       <File FileName="SPHScanner/Scanner.cs" Line="29" Column="32" />
@@ -11,9 +11,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/erwin/Documents/SPHCryptoScanner/SPHCryptoScanner/SPHScanner/CandleFactory.cs" relfile="SPHScanner/CandleFactory.cs" line="65" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />

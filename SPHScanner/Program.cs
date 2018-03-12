@@ -32,10 +32,6 @@ namespace SPHScanner
             scanner = new Scanner(ExchangeTypes.Binance);
             scanner.Scan(strategy);
 
-            // scan SPH's on kraken
-            scanner = new Scanner(ExchangeTypes.Kraken); 
-            scanner.Scan(strategy);
-
 
             Console.WriteLine("--- done ---");
             Console.ReadLine();
