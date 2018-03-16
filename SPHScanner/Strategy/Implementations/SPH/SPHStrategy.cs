@@ -31,6 +31,8 @@ namespace SPHScanner
                 {
                     var candle = candles[candleIndex];
                     if (!candle.IsRedCandle()) break;
+                    var panic = candle.BodyPercentage();
+                    if (panic < 5) break;
                     totalPanic += candle.BodyPercentage();
                     candleIndex--;
                     candleCount++;
@@ -79,7 +81,7 @@ namespace SPHScanner
                                     sph.Price = candles[endCandleIndex].Close;
                                     sph.PanicPercentage = totalPanic;
                                     sph.PanicHours = (int)candleCount;
-                                    sph.Date = candles[endCandleIndex].Date.ToString("yyyy-MM-dd HH:mm:ss");
+                                    sph.Date = candles[endCandleIndex].Date.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
                                     result.Add(sph);
                                 }
                             }
@@ -101,7 +103,7 @@ namespace SPHScanner
         /// <param name="candleIndex">candle to look from.</param>
         private bool PriceWentBelow(List<Candle> candles, decimal panicPrice, int candleIndex)
         {
-            for (int i = candles.Count - 1; i > candleIndex; i--)
+            for (int i = candles.Count - 1; i > candleIndex+1; i--)
             {
                 var candle = candles[i];
                 var minPrice = Math.Min(candle.Open, candle.Close);
