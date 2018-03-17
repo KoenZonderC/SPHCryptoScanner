@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DigitalRuby.ExchangeSharp" Version="0.2.8" />
+    <PackageReference Include="DigitalRuby.ExchangeSharp" Version="0.2.9" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scanner.Entities\Scanner.Entities.csproj" />

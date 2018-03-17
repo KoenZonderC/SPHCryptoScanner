@@ -42,13 +42,20 @@ namespace SPHScanner
         /// <value>The panic hours.</value>
         public int PanicHours { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets the recovery hours.
+        /// </summary>
+        /// <value>The recovery hours.</value>
+        public int RecoveryHours { get; set; }
+
         public SPHResult()
         {
         }
 
         public void Dump()
         {
-            Console.WriteLine($"SPH: {Date}   {Symbol,15} panic:{PanicPercentage:00.##}% in {PanicHours} hours  stability: {StabilityInHours,2} hours  price: {Price}");
+            Console.WriteLine($"SPH: {Date}   {Symbol,15} panic:{PanicPercentage:00.00}% in {PanicHours} hours, stability: {StabilityInHours,2} hours, recovery:{RecoveryHours} hours,  price: {Price}");
         }
     }
 }

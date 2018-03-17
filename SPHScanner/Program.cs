@@ -14,7 +14,7 @@ namespace SPHScanner
 
         static void Main(string[] args)
         {
-            Console.WriteLine("SPH Scanner 1.02 (c) 2018 Erwin Beckers");
+            Console.WriteLine("SPH Scanner 1.03 (c) 2018 Erwin Beckers");
             Console.WriteLine("");
 
             // create database if it doesnt exists yet

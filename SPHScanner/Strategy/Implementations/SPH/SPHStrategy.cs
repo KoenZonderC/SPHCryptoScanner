@@ -69,7 +69,8 @@ namespace SPHScanner
                         {
                             // Stability found
                             // Now check if price retraces back to opening price quickly
-                            if (PriceRetracesTo(candles, startPrice, endCandleIndex + 1, (int)(candleCount * 2)))
+                            int recoveryInHours = GetRecoveryInHours(candles, startPrice, endCandleIndex + 1);
+                            if ( recoveryInHours <  (int)(candleCount * 4))
                             {
                                 // found fast retracement, check if SPH is still valid
                                 if (!PriceWentBelow(candles, panicPrice, endCandleIndex))
@@ -81,6 +82,7 @@ namespace SPHScanner
                                     sph.Price = candles[endCandleIndex].Close;
                                     sph.PanicPercentage = totalPanic;
                                     sph.PanicHours = (int)candleCount;
+                                    sph.RecoveryHours = recoveryInHours;
                                     sph.Date = candles[endCandleIndex].Date.AddHours(1).ToString("yyyy-MM-dd HH:mm:ss");
                                     result.Add(sph);
                                 }
@@ -113,21 +115,22 @@ namespace SPHScanner
         }
 
         /// <summary>
-        /// Checks if price retraces within a few candles
+        /// returns how long the recovery period takes in hours
         /// </summary>
-        /// <returns><c>true</c>, if price retraced, <c>false</c> otherwise.</returns>
-        /// <param name="candles">Candles list</param>
-        /// <param name="price">price to which current price should retrace</param>
-        /// <param name="startIndex">start candle.</param>
-        /// <param name="maxCandles">Max candles in which price must have retraced back</param>
-        private bool PriceRetracesTo(List<Candle> candles, decimal price, int startIndex, int maxCandles)
+        /// <returns>The recovery in hours.</returns>
+        /// <param name="candles">Candles.</param>
+        /// <param name="price">Price.</param>
+        /// <param name="startIndex">Start index.</param>
+        private int GetRecoveryInHours(List<Candle> candles, decimal price, int startIndex)
         {
-            for (int i = startIndex; i <= startIndex + maxCandles && i < candles.Count; ++i)
+            int hrs = 1;
+            for (int i = startIndex; i < candles.Count; ++i)
             {
                 var candle = candles[i];
-                if (candle.Close >= price) return true;
+                if (candle.Close >= price) return hrs; 
+                hrs++;   
             }
-            return false;
+            return 10000;
         }
 
 
