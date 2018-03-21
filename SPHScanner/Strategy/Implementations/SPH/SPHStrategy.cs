@@ -19,10 +19,18 @@ namespace SPHScanner
         /// <param name="candles">Candles list</param>
         public IList<IScanResult> Scan(string symbol, List<Candle> candles)
         {
+            if (symbol == "SUBBTC")
+            {
+
+            }
             var result = new List<IScanResult>();
 
             for (var i = candles.Count - 1; i > 0; i--)
             {
+                if (candles[i].Date.Month==3 && candles[i].Date.Day == 18)
+                {
+
+                }
                 // Find panic....
                 var candleIndex = i;
                 var totalPanic = 0M;
@@ -31,35 +39,44 @@ namespace SPHScanner
                 {
                     var candle = candles[candleIndex];
                     if (!candle.IsRedCandle()) break;
-                    var panic = candle.BodyPercentage();
-                    if (panic < 5) break;
                     totalPanic += candle.BodyPercentage();
                     candleIndex--;
                     candleCount++;
                 }
 
-                if (candleCount > 0)
+                if (candleCount > 0 && totalPanic >= 5m)
                 {
+                    candleIndex++; // start of panic
+                    var startCandleIndex = candleIndex;
+                    var endCandleIndex = i;
+
                     var panicPerCandle = totalPanic / candleCount;
-                    if (panicPerCandle < 5m && candleCount > 1)
+                    while (panicPerCandle < 5m && candleCount > 1)
                     {
                         // perhaps the start candle is part of the stability phase and not the panic phase.
-                        candleCount--;
-                        candleIndex++;
-                        var candle = candles[candleIndex];
+                        var candle = candles[startCandleIndex];
                         var candlePercentage = candle.BodyPercentage();
-                        if (candlePercentage < 5m)
+                        if (candlePercentage < 4m)
                         {
+                            candleCount--;
+                            candleIndex++;
                             totalPanic = totalPanic - candlePercentage;
                             panicPerCandle = totalPanic / candleCount;
+                            startCandleIndex = candleIndex;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
-                    if (panicPerCandle >= 5m)
+                    var minPanicPerCandle = 5m;
+                    if (totalPanic > 20m)
+                    {
+                        minPanicPerCandle = 4m;
+                    }
+                    if (panicPerCandle >= minPanicPerCandle)
                     {
                         // we found panic.. 
-                        var startCandleIndex = i - (int)(candleCount) + 1;
-                        var endCandleIndex = i;
-
                         var startPrice = candles[startCandleIndex].Open;
                         var panicPrice = candles[endCandleIndex].Close;
 
@@ -70,7 +87,7 @@ namespace SPHScanner
                             // Stability found
                             // Now check if price retraces back to opening price quickly
                             int recoveryInHours = GetRecoveryInHours(candles, startPrice, endCandleIndex + 1);
-                            if ( recoveryInHours <  (int)(candleCount * 4))
+                            if (recoveryInHours < (int)(candleCount * 4))
                             {
                                 // found fast retracement, check if SPH is still valid
                                 if (!PriceWentBelow(candles, panicPrice, endCandleIndex))
@@ -105,7 +122,7 @@ namespace SPHScanner
         /// <param name="candleIndex">candle to look from.</param>
         private bool PriceWentBelow(List<Candle> candles, decimal panicPrice, int candleIndex)
         {
-            for (int i = candles.Count - 1; i > candleIndex+1; i--)
+            for (int i = candles.Count - 1; i > candleIndex + 1; i--)
             {
                 var candle = candles[i];
                 var minPrice = Math.Min(candle.Open, candle.Close);
@@ -127,8 +144,8 @@ namespace SPHScanner
             for (int i = startIndex; i < candles.Count; ++i)
             {
                 var candle = candles[i];
-                if (candle.Close >= price) return hrs; 
-                hrs++;   
+                if (candle.Close >= price) return hrs;
+                hrs++;
             }
             return 10000;
         }
@@ -163,7 +180,7 @@ namespace SPHScanner
                 }
             }
 
-            return stabilityCandles ;
+            return stabilityCandles;
         }
     }
 }

@@ -14,7 +14,12 @@ namespace SPHScanner
 
         static void Main(string[] args)
         {
-            Console.WriteLine("SPH Scanner 1.03 (c) 2018 Erwin Beckers");
+
+            //SPH: 2018-03-18 17:00:00          BTC-CLAM panic:05.10% in 1 hours, stability:  2 hours, recovery:1 hours,  price: 0.00039249
+            //SPH: 2018-03-18 16:00:00          BTC-DOGE panic:05.13% in 1 hours, stability:  3 hours, recovery:2 hours,  price: 0.00000037
+            //SPH: 2018-03-15 06:00:00          BTC-PDC panic:07.74% in 1 hours, stability:  2 hours, recovery:2 hours,  price: 0.00000286
+            //SPH: 2018-02-06 08:00:00          NULSBTC panic:09.36 % in 1 hours, stability: 2 hours, recovery: 2 hours,  price: 0.00022659
+            Console.WriteLine("SPH Scanner 1.04 (c) 2018 Erwin Beckers");
             Console.WriteLine("");
 
             // create database if it doesnt exists yet
