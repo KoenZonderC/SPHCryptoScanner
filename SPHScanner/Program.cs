@@ -14,7 +14,6 @@ namespace SPHScanner
 
         static void Main(string[] args)
         {
-
             //SPH: 2018-03-18 17:00:00          BTC-CLAM panic:05.10% in 1 hours, stability:  2 hours, recovery:1 hours,  price: 0.00039249
             //SPH: 2018-03-18 16:00:00          BTC-DOGE panic:05.13% in 1 hours, stability:  3 hours, recovery:2 hours,  price: 0.00000037
             //SPH: 2018-03-15 06:00:00          BTC-PDC panic:07.74% in 1 hours, stability:  2 hours, recovery:2 hours,  price: 0.00000286
@@ -23,20 +22,25 @@ namespace SPHScanner
             Console.WriteLine("");
 
             // create database if it doesnt exists yet
-            var db = new PriceDbContext();
-            db.Database.EnsureCreated();
+            using (var db = new PriceDbContext())
+            {
+                db.Database.EnsureCreated();
 
-            // create strategy
-            var strategy = new SPHStrategy();
+                // create strategy
+                var strategy = new SPHStrategy();
 
-            // scan SPH's on bittrex
-            var scanner = new Scanner(ExchangeTypes.Bittrex);
-            scanner.Scan(strategy);
+                // scan SPH's on kraken
+                var scanner = new Scanner(db, ExchangeTypes.Kraken);
+                scanner.Scan(strategy);
 
-            // scan SPH's on binance
-            scanner = new Scanner(ExchangeTypes.Binance);
-            scanner.Scan(strategy);
+                // scan SPH's on bittrex
+                scanner = new Scanner(db, ExchangeTypes.Bittrex);
+                scanner.Scan(strategy);
 
+                // scan SPH's on binance
+                scanner = new Scanner(db, ExchangeTypes.Binance);
+                scanner.Scan(strategy);
+            }
 
             Console.WriteLine("--- done ---");
             Console.ReadLine();

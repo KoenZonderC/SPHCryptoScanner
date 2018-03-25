@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Scanner.Entities
 {
     public class Symbol
@@ -14,7 +15,8 @@ namespace Scanner.Entities
         /// </summary>
         /// <value>The exchange id.</value>
         public int ExchangeId { get; set; }
-        public virtual Exchange Exchange {get;set;}
+
+        public virtual Exchange Exchange { get; set; }
 
         /// <summary>
         /// Gets or sets the symbol name.

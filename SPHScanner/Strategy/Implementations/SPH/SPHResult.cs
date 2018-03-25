@@ -23,7 +23,6 @@ namespace SPHScanner
         /// <value>The price.</value> 
         public decimal Price { get; set; }
 
-
         /// <summary>
         /// Gets or sets the stability period in hours.
         /// </summary>
